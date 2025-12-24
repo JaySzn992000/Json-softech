@@ -1703,7 +1703,7 @@ console.log(`Server is running PORT on ${PORT}`);
 
 setInterval(() => {
   axios
-    .get("https://json-softech.vercel.app/ping")
+    .get("https://jsonsoftech.onrender.com/ping")
     .then(() => {
       console.log("Pinged self to stay awake");
     })
