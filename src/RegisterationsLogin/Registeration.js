@@ -86,7 +86,7 @@ const isValid = onsubmit();
 if (!isValid) return; 
 
 try {
-const response = await fetch("https://naturalbuti.onrender.com/registerationPost", {
+const response = await fetch("https://jsonsoftech.onrender.com/registerationPost", {
 method: "POST",
 headers: {
 "Content-Type": "application/json",
