@@ -16,7 +16,7 @@ const pool = require("./config");
 
 app.use(cors({
   origin: [
-    'http://localhost:3000'
+    'https://json-softech.vercel.app'
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
@@ -1363,149 +1363,149 @@ error: err.message,
 //  Registeration ...
 
 
-app.post("/fetchAdmin", (req, res) => {
-const { adminuser, adminpass } = req.body;
-
-// SQL query to check
-// if the credentials match
-const insertQueryLogin =
-"SELECT * FROM admindashboard WHERE adminuser = ? AND adminpass = ?";
-
-db.query(insertQueryLogin, [adminuser, adminpass], (err, result) => {
-if (err) {
-console.log("Error fetching user:", err);
-res
-.status(500)
-.json({
-success: false,
-message: "Error fetching data",
-error: err.message,
-});
-return;
-}
-
-if (result.length > 0) {
-// User found,
-// login successful
-console.log("Login successful");
-res.status(200).json({ success: true, message: "Login successful" });
-} else {
-// No user found with
-//  the provided credentials
-console.log("Invalid credentials");
-res.status(401).json({ success: false, message: "Invalid credentials" });
-}
-});
-});
-
-// app.post("/fetchAdmin", async (req, res) => {
+// app.post("/fetchAdmin", (req, res) => {
 // const { adminuser, adminpass } = req.body;
 
-// const loginQuery = `
-// SELECT * FROM _admindashboard
-// WHERE adminuser = $1 AND adminpass = $2
-// `;
+// // SQL query to check
+// // if the credentials match
+// const insertQueryLogin =
+// "SELECT * FROM admindashboard WHERE adminuser = ? AND adminpass = ?";
 
-// try {
-// const result = await pool.query(loginQuery, [adminuser, adminpass]);
-
-// if (result.rows.length > 0) {
-// // User found
-// console.log("Login successful");
-// return res.status(200).json({ success: true, message: "Login successful" });
-// } else {
-// // No match
-// console.log("Invalid credentials");
-// return res.status(401).json({ success: false, message: "Invalid credentials" });
-// }
-// } catch (err) {
-// console.error("Error fetching user:", err.message);
-// return res.status(500).json({
+// db.query(insertQueryLogin, [adminuser, adminpass], (err, result) => {
+// if (err) {
+// console.log("Error fetching user:", err);
+// res
+// .status(500)
+// .json({
 // success: false,
 // message: "Error fetching data",
 // error: err.message,
 // });
+// return;
+// }
+
+// if (result.length > 0) {
+// // User found,
+// // login successful
+// console.log("Login successful");
+// res.status(200).json({ success: true, message: "Login successful" });
+// } else {
+// // No user found with
+// //  the provided credentials
+// console.log("Invalid credentials");
+// res.status(401).json({ success: false, message: "Invalid credentials" });
 // }
 // });
+// });
 
-
-app.post("/registerAdmin", (req, res) => {
+app.post("/fetchAdmin", async (req, res) => {
 const { adminuser, adminpass } = req.body;
 
-if (!adminuser || !adminpass) {
-return res
-.status(400)
-.json({ success: false, message: "Username and password are required" });
+const loginQuery = `
+SELECT * FROM _admindashboard
+WHERE adminuser = $1 AND adminpass = $2
+`;
+
+try {
+const result = await pool.query(loginQuery, [adminuser, adminpass]);
+
+if (result.rows.length > 0) {
+// User found
+console.log("Login successful");
+return res.status(200).json({ success: true, message: "Login successful" });
+} else {
+// No match
+console.log("Invalid credentials");
+return res.status(401).json({ success: false, message: "Invalid credentials" });
 }
-
-// Check if the
-// admin already exists
-
-const checkAdminQuery = "SELECT * FROM admindashboard WHERE adminuser = ?";
-const insertAdminQuery =
-"INSERT INTO admindashboard (adminuser, adminpass) VALUES (?, ?)";
-
-db.query(checkAdminQuery, [adminuser], (err, result) => {
-if (err) {
-console.log("Error checking admin:", err.message);
+} catch (err) {
+console.error("Error fetching user:", err.message);
 return res.status(500).json({
 success: false,
-message: "Error checking admin",
+message: "Error fetching data",
 error: err.message,
 });
 }
-
-if (result.length > 0) {
-return res
-.status(409)
-.json({ success: false, message: "Admin username already exists!" });
-}
-
-// Insert
-// the new admin
-db.query(insertAdminQuery, [adminuser, adminpass], (insertErr) => {
-if (insertErr) {
-console.log("Error inserting admin:", insertErr.message);
-return res.status(500).json({
-success: false,
-message: "Error inserting admin",
-error: insertErr.message,
-});
-}
-
-console.log("Admin registered successfully!");
-return res
-.status(201)
-.json({ success: true, message: "Admin registered successfully!" });
-});
-});
 });
 
 
-// app.post('/registerAdmin', async (req, res) => {
-//   const { adminuser, adminpass } = req.body;
-//     console.log("Received admin register:", adminuser, adminpass); // 👈 Debug log
+// app.post("/registerAdmin", (req, res) => {
+// const { adminuser, adminpass } = req.body;
 
-//   try {
-//   const insertAdminQuery = `
-//   INSERT INTO _admindashboard (adminuser, adminpass)
-//   VALUES ($1, $2)
-//   `;
-//   await pool.query(insertAdminQuery, [adminuser, adminpass]); 
+// if (!adminuser || !adminpass) {
+// return res
+// .status(400)
+// .json({ success: false, message: "Username and password are required" });
+// }
 
-//     return res.status(200).json({
-//       success: true,
-//       message: "Admin registered successfully"
-//     });
-//   } catch (err) {
-//     console.error("Error in /registerAdmin:", err);
-//     return res.status(500).json({
-//       success: false,
-//       message: "Server error while registering admin"
-//     });
-//   }
-  
+// // Check if the
+// // admin already exists
+
+// const checkAdminQuery = "SELECT * FROM admindashboard WHERE adminuser = ?";
+// const insertAdminQuery =
+// "INSERT INTO admindashboard (adminuser, adminpass) VALUES (?, ?)";
+
+// db.query(checkAdminQuery, [adminuser], (err, result) => {
+// if (err) {
+// console.log("Error checking admin:", err.message);
+// return res.status(500).json({
+// success: false,
+// message: "Error checking admin",
+// error: err.message,
 // });
+// }
+
+// if (result.length > 0) {
+// return res
+// .status(409)
+// .json({ success: false, message: "Admin username already exists!" });
+// }
+
+// // Insert
+// // the new admin
+// db.query(insertAdminQuery, [adminuser, adminpass], (insertErr) => {
+// if (insertErr) {
+// console.log("Error inserting admin:", insertErr.message);
+// return res.status(500).json({
+// success: false,
+// message: "Error inserting admin",
+// error: insertErr.message,
+// });
+// }
+
+// console.log("Admin registered successfully!");
+// return res
+// .status(201)
+// .json({ success: true, message: "Admin registered successfully!" });
+// });
+// });
+// });
+
+
+app.post('/registerAdmin', async (req, res) => {
+  const { adminuser, adminpass } = req.body;
+    console.log("Received admin register:", adminuser, adminpass); // 👈 Debug log
+
+  try {
+  const insertAdminQuery = `
+  INSERT INTO _admindashboard (adminuser, adminpass)
+  VALUES ($1, $2)
+  `;
+  await pool.query(insertAdminQuery, [adminuser, adminpass]); 
+
+    return res.status(200).json({
+      success: true,
+      message: "Admin registered successfully"
+    });
+  } catch (err) {
+    console.error("Error in /registerAdmin:", err);
+    return res.status(500).json({
+      success: false,
+      message: "Server error while registering admin"
+    });
+  }
+  
+});
 
 
 // app.post("/addcartaddress", (req, res) => {
@@ -1703,7 +1703,7 @@ console.log(`Server is running PORT on ${PORT}`);
 
 setInterval(() => {
   axios
-    .get("https://naturalbuti.onrender.com/ping")
+    .get("https://json-softech.vercel.app/ping")
     .then(() => {
       console.log("Pinged self to stay awake");
     })
@@ -2237,33 +2237,33 @@ res.status(200).json({ products: result, total: totalProducts });
 });
 
 
-app.get("/fetchCutomerOrder", (req, res) => {
-const productQuery = "SELECT * FROM custorder";
-db.query(productQuery, (err, result) => {
-if (err) {
-console.log("Fetch error");
-res.status(500).json({ message: "Fetch error", error: err.message });
-} else {
-const totalProducts = result.length;
-res.status(200).json({ products: result, total: totalProducts });
-}
-});
-});
-
-
-// app.get("/fetchCutomerOrder", async (req, res) => {
-// const productQuery = "SELECT * FROM _custorder";
-
-// try {
-// const result = await pool.query(productQuery);
-// const totalProducts = result.rows.length;
-
-// res.status(200).json({ products: result.rows, total: totalProducts });
-// } catch (err) {
-// console.log("Fetch error:", err.message);
+// app.get("/fetchCutomerOrder", (req, res) => {
+// const productQuery = "SELECT * FROM custorder";
+// db.query(productQuery, (err, result) => {
+// if (err) {
+// console.log("Fetch error");
 // res.status(500).json({ message: "Fetch error", error: err.message });
+// } else {
+// const totalProducts = result.length;
+// res.status(200).json({ products: result, total: totalProducts });
 // }
 // });
+// });
+
+
+app.get("/fetchCutomerOrder", async (req, res) => {
+const productQuery = "SELECT * FROM _custorder";
+
+try {
+const result = await pool.query(productQuery);
+const totalProducts = result.rows.length;
+
+res.status(200).json({ products: result.rows, total: totalProducts });
+} catch (err) {
+console.log("Fetch error:", err.message);
+res.status(500).json({ message: "Fetch error", error: err.message });
+}
+});
 
 
 // app.post("/fetchCutomerOrder", (req, res) => {
