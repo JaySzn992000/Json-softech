@@ -123,7 +123,7 @@ setIsProcessing(true); // 🟢 Immediately
 // show "Processing..."
 
 try {
-const response = await axios.post("https://naturalbuti.onrender.com/create-order", {
+const response = await axios.post("https://jsonsoftech.onrender.com/create-order", {
 amount: totalAmount,
 });
 
@@ -144,7 +144,7 @@ return;
 
 
 const paymentVerificationResponse = await axios.post(
-"https://naturalbuti.onrender.com/verify-payment",
+"https://jsonsoftech.onrender.com/verify-payment",
 response
 );
 
@@ -175,7 +175,7 @@ payment_status: "Sucessfull",
 console.log("🚀 dataToSend to backend:", JSON.stringify(dataToSend, null, 2));
 
 await axios.post(
-"https://naturalbuti.onrender.com/addcartaddress",
+"https://jsonsoftech.onrender.com/addcartaddress",
 dataToSend
 );
 resetForm();
