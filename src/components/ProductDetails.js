@@ -55,33 +55,36 @@ fetchProduct();
 
 
 const handleAddToCart = () => {
-if (arrayStore && selectedSize) {
+if (!arrayStore) return;
+
 const isProductInCart = cart.some(
-(item) => item.id === arrayStore.id && item.size === selectedSize
+(item) =>
+item.id === arrayStore.id &&
+(selectedSize ? item.size === selectedSize : !item.size)
 );
 
-
 if (isProductInCart) {
-alert("This product with the selected size is already in your cart.");
-} else {
+alert("This product is already in your cart.");
+return;
+}
+
 const productToAdd = {
 ...arrayStore,
-size: selectedSize,
-price: arrayStore.price * priceMultiplier,
+size: selectedSize || null,
+price: selectedSize
+? arrayStore.price * priceMultiplier
+: arrayStore.price,
 originalPrice: arrayStore.price,
-priceMultiplier: priceMultiplier
+priceMultiplier: selectedSize ? priceMultiplier : 1,
 };
 
-
-addToCart(productToAdd, selectedSize);
-setCartCount(cartCount + 1);
+addToCart(productToAdd);
+setCartCount((prev) => prev + 1);
 localStorage.setItem(`cart-added-${id}`, JSON.stringify(true));
 alert("Product added to cart!");
-}
-} else {
-alert("Please select a size before adding to cart.");
-}
 };
+
+
 
 const handleGoToCart = () => {
 navigate("/ECart");
@@ -166,44 +169,44 @@ content="https://yourdomain.com/images/pickle-default.jpg"
 
 <div className="mobile-slider">
 
-  <Slider {...sliderSettings}>
-    <div>
-      <img
-        className="product_img mobile-slider-img"
-        src={arrayStore.file_path}
-        alt={`${arrayStore.name} - Image 1`}
-        loading="lazy"
-      />
-    </div>
+<Slider {...sliderSettings}>
+<div>
+<img
+className="product_img mobile-slider-img"
+src={arrayStore.file_path}
+alt={`${arrayStore.name} - Image 1`}
+loading="lazy"
+/>
+</div>
 
-    <div>
-      <img
-        className="product_img mobile-slider-img"
-        src={arrayStore.file_path1}
-        alt={`${arrayStore.name} - Image 2`}
-        loading="lazy"
-      />
-    </div>
+<div>
+<img
+className="product_img mobile-slider-img"
+src={arrayStore.file_path1}
+alt={`${arrayStore.name} - Image 2`}
+loading="lazy"
+/>
+</div>
 
-    <div>
-      <img
-        className="product_img mobile-slider-img"
-        src={arrayStore.file_path2}
-        alt={`${arrayStore.name} - Image 3`}
-        loading="lazy"
-      />
-    </div>
+<div>
+<img
+className="product_img mobile-slider-img"
+src={arrayStore.file_path2}
+alt={`${arrayStore.name} - Image 3`}
+loading="lazy"
+/>
+</div>
 
-    <div>
-      <img
-        className="product_img mobile-slider-img"
-        src={arrayStore.file_path3}
-        alt={`${arrayStore.name} - Image 4`}
-        loading="lazy"
-      />
-    </div>
-  </Slider>
-  
+<div>
+<img
+className="product_img mobile-slider-img"
+src={arrayStore.file_path3}
+alt={`${arrayStore.name} - Image 4`}
+loading="lazy"
+/>
+</div>
+</Slider>
+
 </div>
 
 {/* Thumbnails for 
@@ -267,14 +270,14 @@ INR
 </span>
 </h2>
 
-<h2 className="stckTg"> In Stock 
+{/* <h2 className="stckTg"> In Stock 
 { } <span>{arrayStore.stock}</span> 
 </h2>
-<p>Size</p>
+<p>Size</p> */}         
 
 </section>
 
-<div className="size_chart">
+{/* <div className="size_chart">
 {sizes.map((size, index) => (
 <button
 id="btnsize"
@@ -285,11 +288,10 @@ className={selectedSize === size ? "selected" : ""}
 {size}
 </button>
 ))}
+</div> */}
 
-</div>
 
-
-<div className="pincode_flex">
+{/* <div className="pincode_flex">
 <img
 src="https://cdn-icons-png.flaticon.com/128/446/446075.png"
 alt=""
@@ -308,7 +310,7 @@ maxLength={6}
 <button onClick={handleCheck} className="pinCode_checkerbtn">
 Check
 </button>
-</div>
+</div> */}
 
 <p id="delivery_msg">{message}</p>
 
