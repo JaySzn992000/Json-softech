@@ -328,7 +328,7 @@ alt=""
 <div className="div_ul">
 
 <li className="hover_products">
-<a onClick={naviToCollection}  href="">SERVICES</a>
+// <a onClick={naviToCollection}  href="">SERVICES</a>
 
 {/* <div className="listing_Products">
 <ul>
