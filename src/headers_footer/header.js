@@ -57,15 +57,15 @@ support business growth and long-term success.
 </ul>
 
 <ul>
-<li>
-<a href="#">Digital Marketing</a>
-</li>
+// <li>
+// <a href="#">Digital Marketing</a>
+// </li>
 <li>
 <a href="#">Web Development</a>
 </li>
-<li>
-<a href="#">Hosting Service</a>
-</li>
+// <li>
+// <a href="#">Hosting Service</a>
+// </li>
 <li>
 <a href="#">e-Commerce Website</a>
 </li>
