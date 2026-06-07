@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 import img1 from "../Slider/Website1.jpg";
 import img2 from "../Slider/Website2.jpg";
-import img3 from "../Slider/Website3.jpg";
+// import img3 from "../Slider/Website3.jpg";
 import img4 from "../Slider/Website4.jpg";
 import img5 from "../Slider/website5.jpg";
 
