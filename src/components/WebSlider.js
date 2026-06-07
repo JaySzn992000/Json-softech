@@ -16,7 +16,6 @@ const websites = [
 { name: "Winsome Bloom", url: "https://winsome-bloom.vercel.app/", img: img1 },
 { name: "HT London", url: "https://htlondon.vercel.app/", img: img2 },
 { name: "Essence", url: "https://essence-furniture.vercel.app/", img: img5 },
-{ name: "Lavonne", url: "https://lavonne.vercel.app/", img: img3 },
 { name: "Sanaargold", url: "https://sanaargold.com/?srsltid=AfmBOop2tkX0r0WwOr5B5DEjliIdRBR2vFAYGbgr-7xIoNtzmARuGZQX", img: img4 },
 ];
 
