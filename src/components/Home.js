@@ -17,7 +17,7 @@ import ComAbout from "./ComAbout";
 import CustomerSection from "./CustomerSection";
 import Websolution from "./Websolution";
 import FaqData from "./FaqData";
-// import WebSlider from "./WebSlider";
+import WebSlider from "./WebSlider";
 import TechnologieSlider from "../TechnologieSlider";
 import ChatApp from "./ChatApp";
 // import VideoSliderComponent from "../videoslider";
@@ -120,7 +120,7 @@ content="Pickles, Homemade Achaar, Mango Pickle, Buy Pickles Online, Indian Pick
 <Projectclock></Projectclock>
 <ComAbout></ComAbout>
 
-{/* <WebSlider></WebSlider> */}
+<WebSlider></WebSlider>
 
 <TechnologieSlider></TechnologieSlider>
 
