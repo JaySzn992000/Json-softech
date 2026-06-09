@@ -2,7 +2,6 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
 import img1 from "../Slider/Website1.jpg";
 import img2 from "../Slider/Website2.jpg";
 import img4 from "../Slider/Website4.jpg";
